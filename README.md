@@ -1,10 +1,47 @@
-# P-Stream Extension
+# CINEFLIX Browser Resolver Extension
 
-Enhance your experience with just one click!
+Resolve and prepare CINEFLIX streams entirely in the user's browser.
+
+This extension is the browser-only counterpart to `cineflix-core`: it executes
+the CINEFLIX provider engine in its service worker, uses browser-granted host
+access for provider requests, and configures playback headers with
+`declarativeNetRequest`. No CinePro/Core HTTP server, remote CORS proxy, or
+server-side stream resolver is required.
 
 ## About
 
-The extension is an optional "plugin" for P-Stream (and all movie-web forks) that adds a more sources that usually yield a better-quality stream!
+The extension is an optional browser capability for CINEFLIX. Once a site is
+enabled in the popup, it can use the same browser provider catalogue as the
+main app, including source and embed resolution, ranked fallbacks, captions
+returned by providers, stream-header preparation, and CORS-safe provider
+fetches.
+
+The extension deliberately does not include API secrets. The calling page must
+pass the title, year, TMDB id, and (for shows) season and episode metadata it
+already has. This keeps the whole resolve flow local to the browser.
+
+## CINEFLIX page bridge
+
+The content script exposes a small `window.postMessage` bridge to the enabled
+page. Requests must include `direction: 'cineflix-to-extension'`, a unique
+`requestId`, an action type, and a payload. Responses use
+`direction: 'extension-to-cineflix'` and the same `requestId`.
+
+Available actions:
+
+- `LIST_PROVIDERS` — lists the enabled source and embed metadata.
+- `RESOLVE_MEDIA` — runs ranked source/embed fallbacks for a full media object.
+- `RESOLVE_SOURCE` — runs one named source.
+- `RESOLVE_EMBED` — resolves one embed URL.
+- `MAKE_REQUEST` — performs an extension-hosted HTTP request with provider
+  headers applied through declarative net request rules.
+- `PREPARE_STREAM` — keeps required playback headers and CORS relaxation active
+  for stream CDN domains.
+
+The bridge is restricted to sites explicitly enabled in the popup. The
+extension sets `window.__CINEFLIX_EXTENSION_ACTIVE__` in the page's main world
+as soon as the content script connects, so the CINEFLIX client selects its
+extension fetcher.
 
 In simple terms: it acts as a local proxy. Imagine it opens an invisible tab to extract (scrape) the stream from the desired website. The only difference is that the extension can send specific headers, cookies, and is locally based. Some sources have restrictions that block scrapers; the extension helps us bypass that, such as IP restrictions, where the stream needs to be loaded on the same IP that it was originally scraped from.
 
@@ -55,4 +92,3 @@ pnpm build
 or
 pnpm build:firefox
 ```
-

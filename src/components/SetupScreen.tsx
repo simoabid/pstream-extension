@@ -18,9 +18,9 @@ export function SetupScreen() {
         <div className="icon">
           <Icon name="logo" />
         </div>
-        <h1 className="title">Let&apos;s get things configured.</h1>
+        <h1 className="title">Enable CINEFLIX browser resolving.</h1>
         <p className="paragraph" style={{ paddingBottom: 25, paddingTop: 10 }}>
-          To get started, we need to setup some things first. Click the button below to continue.
+          Grant optional site access to resolve providers and prepare streams locally in this browser.
         </p>
       </div>
       <Button onClick={open} full>

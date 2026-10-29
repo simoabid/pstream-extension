@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
   },
@@ -32,10 +33,14 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'no-restricted-syntax': 'off',
     'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
+    // The browser resolver deliberately compiles the shared provider engine
+    // from the adjacent CINEFLIX application package.
+    'import/no-relative-packages': 'off',
     'consistent-return': 'off',
     'no-continue': 'off',
     'no-eval': 'off',
     'no-await-in-loop': 'off',
+    'no-use-before-define': ['error', { functions: false }],
     'no-nested-ternary': 'off',
     'no-param-reassign': ['error', { props: false }],
     'prefer-destructuring': 'off',

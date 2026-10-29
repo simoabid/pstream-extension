@@ -8,7 +8,7 @@ export function DisabledScreen() {
         <Icon name="warningCircle" />
       </div>
       <p>
-        The <strong>P-Stream extension</strong> can not be used on this page
+        The <strong>CINEFLIX Browser Resolver</strong> can not be used on this page
       </p>
     </div>
   );

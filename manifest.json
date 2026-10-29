@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "P-Stream extension",
+  "name": "CINEFLIX Browser Resolver",
   "optional_host_permissions": ["\u003Call_urls>"],
-  "permissions": ["storage", "declarativeNetRequest", "activeTab", "cookies"],
+  "permissions": ["storage", "declarativeNetRequest", "activeTab", "cookies", "scripting"],
   "update_url": "https://clients2.google.com/service/update2/crx",
   "version": "${version}",
   "web_accessible_resources": [
